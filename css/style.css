@@ -1,0 +1,1142 @@
+:root {
+  --primary-color: #00998F;
+  --primary-hover: #007F75;
+  --primary-light-bg: #E0F2F1;
+
+  --text-dark: #263238;
+  --text-medium: #546E7A;
+  --text-light: #78909C;
+  --text-on-primary: #FFFFFF;
+
+  --bg-white: #FFFFFF;
+  --bg-light-gray: #ECEFF1;
+  --bg-medium-gray: #CFD8DC;
+  --border-color: #B0BEC5;
+
+  --border-radius: 0.3rem;
+  --border-radius-lg: 0.5rem;
+
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 12px 24px rgba(0,0,0,0.1);
+
+  --font-family-sans-serif: "Open Sans", Arial, sans-serif;
+  --font-family-headings: "Exo 2", "Open Sans", Arial, sans-serif;
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --transition-base: all 0.3s ease-in-out;
+  --transition-fast: all 0.2s ease-in-out;
+  --transition-slow: all 0.5s ease-in-out;
+
+  --animation-duration: 0.7s;
+  --animation-duration-long: 1s;
+  --header-height: 95px;
+}
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  font-family: var(--font-family-sans-serif);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.7;
+  color: var(--text-dark);
+  background-color: var(--bg-light-gray);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+  -webkit-transition: var(--transition-fast);
+  transition: var(--transition-fast);
+}
+
+a:hover {
+  color: var(--primary-hover);
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-headings);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.3;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+h1 { font-size: 2.8rem; font-weight: var(--font-weight-extrabold); }
+h2 { font-size: 2.2rem; font-weight: var(--font-weight-bold); }
+h3 { font-size: 1.8rem; font-weight: var(--font-weight-semibold); }
+h4 { font-size: 1.5rem; font-weight: var(--font-weight-semibold); }
+h5 { font-size: 1.25rem; font-weight: var(--font-weight-bold); }
+h6 { font-size: 1rem; font-weight: var(--font-weight-bold); }
+
+p {
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+  color: var(--text-medium);
+}
+p:last-child {
+    margin-bottom: 0;
+}
+
+.page-intro {
+    text-align: center;
+    font-size: 1.15rem;
+    color: var(--text-medium);
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@-webkit-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@-webkit-keyframes fadeInSlideUp {
+  from { opacity: 0; -webkit-transform: translateY(40px); transform: translateY(40px); }
+  to { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
+}
+@keyframes fadeInSlideUp {
+  from { opacity: 0; -webkit-transform: translateY(40px); transform: translateY(40px); }
+  to { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
+}
+.animate-fadeInSlideUp { /* For Hero elements primarily */
+  opacity: 0;
+  -webkit-animation-name: fadeInSlideUp;
+          animation-name: fadeInSlideUp;
+  -webkit-animation-duration: var(--animation-duration);
+          animation-duration: var(--animation-duration);
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  /* animation-delay is applied via inline style in HTML */
+}
+
+/* --- Ken Burns for Hero Background --- */
+@-webkit-keyframes kenBurns {
+  0% { background-size: 100% 100%; background-position: 50% 50%; }
+  100% { background-size: 115% 115%; background-position: 50% 50%; }
+}
+@keyframes kenBurns {
+  0% { background-size: 100% 100%; background-position: 50% 50%; }
+  100% { background-size: 115% 115%; background-position: 50% 50%; }
+}
+
+/* --- Pulse Animation for Hero Button --- */
+@-webkit-keyframes pulseBtn {
+  0%, 100% { -webkit-transform: scale(1) translateY(0); transform: scale(1) translateY(0); -webkit-box-shadow: var(--shadow-sm); box-shadow: var(--shadow-sm); }
+  50% { -webkit-transform: scale(1.03) translateY(-2px); transform: scale(1.03) translateY(-2px); -webkit-box-shadow: var(--shadow-lg); box-shadow: var(--shadow-lg); }
+}
+@keyframes pulseBtn {
+  0%, 100% { -webkit-transform: scale(1) translateY(0); transform: scale(1) translateY(0); -webkit-box-shadow: var(--shadow-sm); box-shadow: var(--shadow-sm); }
+  50% { -webkit-transform: scale(1.03) translateY(-2px); transform: scale(1.03) translateY(-2px); -webkit-box-shadow: var(--shadow-lg); box-shadow: var(--shadow-lg); }
+}
+.hero .btn.hero-btn-pulse.animate-fadeInSlideUp {
+  -webkit-animation-name: fadeInSlideUp, pulseBtn;
+          animation-name: fadeInSlideUp, pulseBtn;
+  -webkit-animation-duration: var(--animation-duration), 2.5s;
+          animation-duration: var(--animation-duration), 2.5s;
+  -webkit-animation-timing-function: ease-out, ease-in-out;
+          animation-timing-function: ease-out, ease-in-out;
+  -webkit-animation-fill-mode: forwards, forwards;
+          animation-fill-mode: forwards, forwards;
+  -webkit-animation-iteration-count: 1, infinite;
+          animation-iteration-count: 1, infinite;
+  -webkit-animation-delay: inherit, calc(0.5s + var(--animation-duration) + 1.5s);
+          animation-delay: inherit, calc(0.5s + var(--animation-duration) + 1.5s);
+}
+
+
+/* --- Intersection Observer Animations --- */
+.animate-on-scroll {
+    opacity: 0; /* Start hidden, will become visible via .is-visible */
+}
+.animate-on-scroll.is-visible {
+    opacity: 1; /* Make parent container visible, children will follow based on their delays */
+}
+
+/* --- MODIFICATION FOR STOREFRONT VISIBILITY (SECTION) --- */
+/* Ensure #welcome section is visible by default, overriding .animate-on-scroll initial opacity */
+#welcome.animate-on-scroll {
+    opacity: 1;
+}
+/* --- END MODIFICATION --- */
+
+[class*="stagger-item-"] {
+    opacity: 0;
+    transform: translateY(40px);
+    transition-property: opacity, transform, clip-path, border-left-width; /* Add all animatable properties */
+    transition-duration: var(--animation-duration);
+    transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* --- MODIFICATION FOR STOREFRONT VISIBILITY (IMAGE CONTAINER) --- */
+/* Ensure #welcome .welcome-image.stagger-item-1 is visible by default */
+#welcome .welcome-image.stagger-item-1 {
+    opacity: 1; /* Override opacity: 0 from [class*="stagger-item-"] */
+    transform: translateY(0) translateX(0); /* Override initial transform for animation */
+}
+/* Also ensure #welcome .welcome-text.stagger-item-2 is visible by default for consistency */
+#welcome .welcome-text.stagger-item-2 {
+    opacity: 1; /* Override opacity: 0 from [class*="stagger-item-"] */
+    transform: translateY(0) translateX(0); /* Override initial transform for animation */
+}
+/* --- END MODIFICATION --- */
+
+.animate-on-scroll.is-visible [class*="stagger-item-"] {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+}
+
+.stagger-item-1 { transition-delay: 0.1s; }
+.stagger-item-2 { transition-delay: 0.2s; }
+.stagger-item-3 { transition-delay: 0.3s; }
+.stagger-item-4 { transition-delay: 0.4s; }
+.stagger-item-5 { transition-delay: 0.5s; }
+.stagger-item-6 { transition-delay: 0.6s; }
+
+/*
+  Original individual stagger transforms.
+  These are overridden by the MODIFICATIONS above for #welcome .welcome-image.stagger-item-1
+  and #welcome .welcome-text.stagger-item-2 to make them visible by default.
+  They will still apply to other .stagger-item-1 or .stagger-item-2 elements
+  NOT within the #welcome section if the modifications are not specific enough.
+  Our modifications are specific to #welcome context.
+*/
+#welcome .welcome-image.stagger-item-1 {
+    /* transform: translateX(-50px); */ /* Original, now overridden by visibility fix */
+}
+#welcome .welcome-text.stagger-item-2 {
+    /* transform: translateX(50px); */ /* Original, now overridden by visibility fix */
+}
+
+.animate-on-scroll.is-visible #welcome .welcome-image.stagger-item-1 img {
+    clip-path: inset(0 0 0 0);
+}
+
+
+/* ==========================================================================
+   3. LAYOUT (_layout.css)
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+header {
+  background: var(--bg-white);
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  -webkit-box-shadow: var(--shadow-md);
+          box-shadow: var(--shadow-md);
+  border-bottom: 1px solid var(--border-color);
+  height: var(--header-height);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#logo {
+  height: 65px;
+  width: auto;
+  vertical-align: middle;
+  -webkit-transition: var(--transition-fast);
+  transition: var(--transition-fast);
+}
+.logo-link:hover #logo {
+    opacity: 0.85;
+}
+.logo-link:hover {
+  text-decoration: none;
+}
+
+
+.nav-links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.nav-links li {
+  margin-left: 1.75rem;
+}
+
+.nav-links a {
+  font-family: var(--font-family-headings);
+  font-weight: var(--font-weight-semibold);
+  font-size: 0.95rem;
+  text-transform: none;
+  letter-spacing: 0;
+  padding: 0.75rem 0.25rem;
+  border-bottom: 3px solid transparent;
+  -webkit-transition: var(--transition-base);
+  transition: var(--transition-base);
+  color: var(--text-medium);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  text-decoration: none;
+}
+
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1040;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background-color: var(--text-dark);
+  margin: 6px 0;
+  -webkit-transition: var(--transition-slow);
+  transition: var(--transition-slow);
+  border-radius: 1px;
+}
+
+.menu-toggle.open span:nth-child(1) { -webkit-transform: translateY(9px) rotate(45deg); transform: translateY(9px) rotate(45deg); }
+.menu-toggle.open span:nth-child(2) { opacity: 0; }
+.menu-toggle.open span:nth-child(3) { -webkit-transform: translateY(-9px) rotate(-45deg); transform: translateY(-9px) rotate(-45deg); }
+
+
+.page-content {
+  padding-top: 3.5rem;
+  padding-bottom: 4.5rem;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  background-color: var(--bg-light-gray);
+}
+
+.page-content > .container > h1:first-child {
+  color: var(--primary-color);
+  margin-bottom: 2.5rem;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: var(--font-weight-extrabold);
+  opacity: 0;
+  animation: fadeInSlideUp var(--animation-duration) 0.2s ease-out forwards;
+}
+
+.page-content section {
+  margin-bottom: 3.5rem;
+  padding: 2.5rem;
+  background-color: var(--bg-white);
+  border-radius: var(--border-radius-lg);
+  -webkit-box-shadow: var(--shadow-md);
+          box-shadow: var(--shadow-md);
+  border: none;
+}
+.page-content section:last-of-type {
+    margin-bottom: 0;
+}
+
+.page-content section > h2 {
+  color: var(--text-dark);
+  font-weight: var(--font-weight-bold);
+  position: relative;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.page-content section > h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+
+footer {
+  background: var(--text-dark);
+  color: var(--bg-medium-gray);
+  text-align: center;
+  padding: 3rem 0;
+  margin-top: auto;
+  border-top: 4px solid var(--primary-color);
+}
+
+footer p {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--bg-medium-gray);
+}
+
+footer a {
+  color: var(--primary-color);
+  font-weight: var(--font-weight-bold);
+}
+footer a:hover {
+  color: var(--bg-white);
+}
+
+/* ==========================================================================
+   4. COMPONENTS (_components.css)
+   ========================================================================== */
+.btn {
+  display: inline-block;
+  font-family: var(--font-family-headings);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-on-primary);
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: var(--border-radius);
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+  -webkit-transition: var(--transition-base);
+  transition: var(--transition-base);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  -webkit-box-shadow: var(--shadow-sm);
+          box-shadow: var(--shadow-sm);
+}
+
+.btn:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: var(--text-on-primary);
+  text-decoration: none;
+  -webkit-transform: translateY(-2px);
+          transform: translateY(-2px);
+  -webkit-box-shadow: var(--shadow-lg);
+          box-shadow: var(--shadow-lg);
+}
+
+.btn:focus, .btn:active {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 153, 143, 0.3), var(--shadow-md);
+          box-shadow: 0 0 0 0.2rem rgba(0, 153, 143, 0.3), var(--shadow-md);
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: var(--font-weight-semibold); color: var(--text-medium); font-size: 0.9rem; }
+.form-group input[type=text], .form-group input[type=email], .form-group input[type=tel], .form-group textarea { width: 100%; padding: 0.875rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius); font-size: 1rem; font-family: var(--font-family-sans-serif); color: var(--text-dark); background-color: var(--bg-white); box-shadow: none; transition: border-color var(--transition-fast), box-shadow var(--transition-fast); line-height: 1.5; }
+.form-group input:focus, .form-group textarea:focus { border-color: var(--primary-color); outline: 0; box-shadow: 0 0 0 0.2rem rgba(0, 153, 143, 0.2); }
+.form-group textarea { resize: vertical; min-height: 120px; }
+.form-status { margin-top: 1.25rem; font-weight: var(--font-weight-semibold); padding: 0.875rem 1.25rem; border-radius: var(--border-radius); text-align: center; font-size: 0.95rem; opacity: 0; max-height: 0; overflow: hidden; transition: opacity var(--transition-fast), max-height var(--transition-slow) ease-in-out, padding var(--transition-slow) ease-in-out; }
+.form-status.visible { opacity: 1; max-height: 100px; padding: 0.875rem 1.25rem; }
+.form-status.sending { color: var(--text-medium); background-color: var(--bg-light-gray); border: 1px solid var(--border-color); }
+.form-status.success { color: #0f5132; background-color: #d1e7dd; border: 1px solid #badbcc; }
+.form-status.error { color: #842029; background-color: #f8d7da; border: 1px solid #f5c2c7; }
+
+/* ==========================================================================
+   PAGE-SPECIFIC: HOME (_home.css)
+   ========================================================================== */
+.hero {
+  color: var(--bg-white);
+  text-align: center;
+  position: relative;
+  background-image: url('../images/hero-bg.jpg');
+  background-size: 100% 100%;
+  background-position: center center;
+  min-height: 75vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 3rem 1.5rem;
+  overflow: hidden;
+  -webkit-animation: kenBurns 25s infinite alternate ease-in-out;
+          animation: kenBurns 25s infinite alternate ease-in-out;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba(0, 80, 75, 0.75) 0%, rgba(10, 20, 25, 0.65) 100%);
+  z-index: 1;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+
+.hero h2 {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--bg-white);
+  font-weight: var(--font-weight-extrabold);
+  transition: color 0.3s ease, text-shadow 0.3s ease; /* NEW: Added transition for hover */
+}
+
+/* NEW: Optional hover effect for hero headline */
+.hero h2:hover {
+    color: #f8f9fa; /* Slightly brighter white */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+
+.hero p {
+  font-size: 1.4rem;
+  margin-bottom: 3rem;
+  color: var(--bg-light-gray);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: var(--font-weight-light);
+}
+
+.hero .btn {
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  background-color: var(--primary-color);
+  color: var(--text-on-primary);
+  border-color: var(--primary-color);
+  /* Existing transitions from .btn rule will cover most, but explicit here if needed */
+  transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+}
+.hero .btn:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    -webkit-transform: translateY(-3px) scale(1.05);
+            transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-lg), 0 0 15px var(--primary-color); /* MODIFIED: Added subtle glow */
+}
+
+#welcome .welcome-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+#welcome .welcome-image img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: var(--border-radius-lg);
+    -webkit-box-shadow: var(--shadow-xl);
+            box-shadow: var(--shadow-xl);
+    margin: 0 auto 1.5rem auto;
+    -webkit-transition:
+        /* Hover transitions */
+        -webkit-transform var(--transition-base),
+        -webkit-box-shadow var(--transition-base),
+        /* Load-in clip-path animation */
+        clip-path var(--animation-duration) cubic-bezier(0.25, 1, 0.5, 1) 0.1s, /* Added delay */
+        border-color var(--transition-fast); /* NEW: Added border-color transition */
+    transition:
+        /* Hover transitions */
+        transform var(--transition-base),
+        box-shadow var(--transition-base),
+        /* Load-in clip-path animation */
+        clip-path var(--animation-duration) cubic-bezier(0.25, 1, 0.5, 1) 0.1s, /* Added delay */
+        border-color var(--transition-fast); /* NEW: Added border-color transition */
+
+    /* --- MODIFICATION FOR STOREFRONT VISIBILITY (IMAGE ITSELF) --- */
+    /* Initial state for clip-path animation: clip-path: inset(0 100% 0 0); */
+    clip-path: inset(0 0 0 0); /* MODIFIED: Ensures image is not clipped from the start */
+    /* --- END MODIFICATION --- */
+    border: 3px solid transparent; /* NEW: Prepare for border transition */
+}
+
+
+#welcome .welcome-image img:hover {
+    -webkit-transform: scale(1.03) translateY(-5px);
+            transform: scale(1.03) translateY(-5px);
+    -webkit-box-shadow: 0 16px 30px rgba(0,0,0,0.12);
+            box-shadow: 0 16px 30px rgba(0,0,0,0.12);
+    border-color: var(--primary-color); /* NEW: Add colored border on hover */
+}
+
+#welcome .welcome-text { /* NEW: Added base style for hover effect */
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+#welcome .welcome-text:hover { /* NEW: Added hover effect */
+    background-color: #f8f9fa; /* A very light off-white, or var(--primary-light-bg) if preferred */
+    /* transform: translateY(-2px); */ /* Optional subtle lift */
+}
+
+#welcome .welcome-text p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* General centering for specific section headings on home page */
+#welcome h2, #key-offerings h2, #why-us h2 {
+  text-align: center;
+}
+#welcome h2::after,
+#key-offerings h2::after,
+#why-us h2::after {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+}
+
+/* Specific styling for the Welcome section's H2 (within .welcome-text) */
+#welcome .welcome-text h2 {
+  text-align: left;
+}
+
+/* Adjust the ::after pseudo-element for the left-aligned H2 within .welcome-text */
+#welcome .welcome-text h2::after {
+  left: 0; /* Align underline to the left */
+  transform: none; /* Remove the centering transform */
+}
+
+
+#key-offerings .offerings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+}
+
+.offering-item {
+  padding: 2.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+  background-color: var(--bg-white);
+  -webkit-box-shadow: var(--shadow-md);
+          box-shadow: var(--shadow-md);
+  -webkit-transition: -webkit-transform var(--transition-base), -webkit-box-shadow var(--transition-base), background-color var(--transition-fast), border-top-color var(--transition-fast); /* MODIFIED: Added BG and border-top color transition */
+  transition: -webkit-transform var(--transition-base), -webkit-box-shadow var(--transition-base), background-color var(--transition-fast), border-top-color var(--transition-fast);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-fast), border-top-color var(--transition-fast); /* MODIFIED: Added BG and border-top color transition */
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-fast), border-top-color var(--transition-fast), -webkit-transform var(--transition-base), -webkit-box-shadow var(--transition-base);
+  position: relative;
+  border-top: 4px solid var(--primary-color);
+}
+
+.offering-item:hover {
+  -webkit-transform: translateY(-8px);
+          transform: translateY(-8px);
+  -webkit-box-shadow: var(--shadow-xl);
+          box-shadow: var(--shadow-xl);
+  background-color: var(--primary-light-bg); /* NEW: Change background on hover */
+  border-top-color: var(--primary-hover); /* NEW: Darken border top on hover */
+}
+
+/* --- NEW: Optional image container for overlay effect (requires HTML change) --- */
+/*
+.offering-item .image-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+.offering-item .image-container::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--primary-color);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    border-radius: var(--border-radius);
+    pointer-events: none;
+}
+.offering-item:hover .image-container::after {
+    opacity: 0.15;
+}
+.offering-item .image-container img {
+    max-height: 140px;
+    width: auto;
+    object-fit: contain;
+    border-radius: var(--border-radius);
+    transition: transform var(--transition-base);
+    display: block; / * Added to ensure container dimensions correctly wrap image * /
+}
+.offering-item:hover .image-container img {
+    transform: scale(1.08);
+}
+*/
+
+/* --- Fallback/Default image styling if not using .image-container --- */
+.offering-item img { /* This rule applies if .image-container is not used */
+  max-height: 140px;
+  width: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin-bottom: 1.5rem;
+  border-radius: var(--border-radius);
+  -webkit-transition: -webkit-transform var(--transition-base), filter var(--transition-fast); /* NEW: Added filter transition */
+  transition: -webkit-transform var(--transition-base), filter var(--transition-fast);
+  transition: transform var(--transition-base), filter var(--transition-fast); /* NEW: Added filter transition */
+  transition: transform var(--transition-base), filter var(--transition-fast), -webkit-transform var(--transition-base);
+}
+
+.offering-item:hover img { /* This rule applies if .image-container is not used */
+  -webkit-transform: scale(1.08);
+          transform: scale(1.08);
+  /* filter: brightness(0.9) sepia(0.3) hue-rotate(140deg) saturate(5); */ /* NEW: Optional filter tint, uncomment and adjust if desired */
+}
+
+
+.offering-item h3 {
+  margin-bottom: 0.75rem;
+  color: var(--primary-color);
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-semibold);
+  position: relative;
+  padding-bottom: 0.5rem;
+  transition: color var(--transition-fast); /* NEW: Added for smoother color change if needed */
+}
+/* .offering-item:hover h3 { color: var(--primary-hover); } */ /* Optional: Darken H3 color */
+
+
+.offering-item h3::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background-color: var(--primary-hover);
+    transition: width var(--transition-fast) ease-out;
+}
+.offering-item:hover h3::after {
+    width: 60%;
+}
+
+.offering-item p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  transition: color var(--transition-fast); /* NEW: Added for smoother color change if needed */
+}
+/* .offering-item:hover p { color: var(--text-medium); } */ /* Optional: Darken paragraph color slightly */
+
+
+#why-us ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  text-align: left;
+}
+
+#why-us ul li[class*="stagger-item-"] {
+  background-color: var(--primary-light-bg);
+  padding: 2rem 1.75rem;
+  border-radius: var(--border-radius);
+  border-left: 0px solid var(--primary-color);
+  -webkit-box-shadow: var(--shadow-md);
+          box-shadow: var(--shadow-md);
+  font-size: 1rem;
+  color: var(--text-medium);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  position: relative;
+  -webkit-transition: -webkit-transform var(--transition-base), -webkit-box-shadow var(--transition-base), background-color var(--transition-base), color var(--transition-base), border-left-color var(--transition-fast); /* MODIFIED: Added color and border-left-color */
+  transition: -webkit-transform var(--transition-base), -webkit-box-shadow var(--transition-base), background-color var(--transition-base), color var(--transition-base), border-left-color var(--transition-fast);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base), color var(--transition-base), border-left-color var(--transition-fast); /* MODIFIED: Added color and border-left-color */
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base), color var(--transition-base), border-left-color var(--transition-fast), -webkit-transform var(--transition-base), -webkit-box-shadow var(--transition-base);
+}
+
+.animate-on-scroll.is-visible #why-us ul li[class*="stagger-item-"] {
+    border-left-width: 5px;
+}
+
+#why-us ul li:hover {
+  -webkit-transform: translateY(-5px) translateX(3px);
+          transform: translateY(-5px) translateX(3px);
+  -webkit-box-shadow: var(--shadow-xl);
+          box-shadow: var(--shadow-xl);
+  background-color: var(--primary-color); /* MODIFIED: Change background to primary */
+  color: var(--text-on-primary); /* MODIFIED: Change text to white for contrast */
+  border-left-color: var(--primary-hover); /* MODIFIED: Darken border or make it visually distinct */
+}
+
+#why-us ul li::before {
+  content: "✔";
+  color: var(--primary-color);
+  font-weight: var(--font-weight-bold);
+  font-size: 1.4rem;
+  margin-right: 1rem;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  line-height: 1.3;
+  transition: transform var(--transition-fast), color var(--transition-base); /* NEW: Added transition */
+}
+
+#why-us ul li:hover::before { /* NEW: Animate checkmark */
+    color: var(--text-on-primary);
+    transform: scale(1.2) rotate(10deg);
+}
+
+#why-us ul li strong {
+  color: var(--text-dark);
+  font-weight: var(--font-weight-semibold);
+  display: block;
+  margin-bottom: 0.25rem;
+  transition: color var(--transition-base); /* NEW: Added for smooth color change */
+}
+
+#why-us ul li:hover strong { /* NEW: Ensure strong text is also light on hover */
+    color: var(--text-on-primary);
+}
+
+
+.service-image {
+    width: 100%;
+    max-width: 450px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    margin: 0 auto 1.5rem;
+    display: block;
+}
+
+#truck-parts ul, #hydraulic-hoses ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+#truck-parts ul li, #hydraulic-hoses ul li {
+    margin-bottom: 0.5rem;
+    color: var(--text-medium);
+}
+.cta-services {
+    text-align: center;
+    background-color: var(--primary-light-bg) !important;
+    padding: 3rem 1.5rem !important;
+    border-top: 3px solid var(--primary-color);
+}
+.cta-services h3 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+.cta-services p {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+}
+#contact-details p, #contact-details a {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: var(--text-medium);
+}
+#contact-details strong {
+    color: var(--text-dark);
+    font-weight: var(--font-weight-semibold);
+}
+#contact-details a {
+    font-weight: var(--font-weight-normal);
+}
+#contact-details a:hover {
+    text-decoration: underline;
+}
+#map iframe {
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+.map-note {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-light);
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+#our-mission, #our-values {
+    background-color: var(--bg-white);
+}
+#our-values ul {
+    list-style: none;
+    padding-left: 0;
+}
+#our-values ul li {
+    padding: 0.75rem 0 0.75rem 2.5rem;
+    position: relative;
+    margin-bottom: 0.75rem;
+    color: var(--text-medium);
+    font-size: 1.05rem;
+    border-left: 4px solid var(--primary-light-bg);
+    transition: border-left-color var(--transition-fast);
+}
+#our-values ul li:hover {
+    border-left-color: var(--primary-color);
+}
+#our-values ul li::before {
+    content: "✓";
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+#our-values ul li strong {
+    color: var(--text-dark);
+    font-weight: var(--font-weight-semibold);
+}
+
+@media (min-width: 768px) {
+  #welcome .welcome-container {
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 3rem;
+  }
+  #welcome .welcome-image.stagger-item-1 {
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
+  }
+  #welcome .welcome-image img {
+      margin: 0;
+  }
+
+  #truck-parts, #hydraulic-hoses {
+    display: grid;
+    gap: 2.5rem;
+    align-items: flex-start;
+  }
+  #truck-parts {
+    grid-template-columns: 1fr 0.8fr;
+  }
+  #truck-parts > div:first-of-type { order: 0; }
+  #truck-parts > img.service-image { order: 1; }
+
+  #hydraulic-hoses {
+    grid-template-columns: 0.8fr 1fr;
+  }
+  #hydraulic-hoses > img.service-image { order: -1; }
+  #hydraulic-hoses > div:last-of-type { order: 0; }
+
+  .service-image {
+      margin: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .contact-grid {
+    grid-template-columns: minmax(320px, 1fr) 2fr;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .nav-links {
+    display: none;
+    -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column;
+    width: 100%;
+    background-color: var(--bg-white);
+    position: absolute;
+    top: calc(var(--header-height) - 1px);
+    left: 0;
+    padding: 0.5rem 0;
+    -webkit-box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-lg);
+    border-top: 1px solid var(--border-color);
+    z-index: 1039;
+  }
+  .nav-links.open {
+    display: -webkit-box; display: -ms-flexbox; display: flex;
+    -webkit-animation: fadeIn 0.3s ease-out;
+            animation: fadeIn 0.3s ease-out;
+  }
+  .nav-links li { margin: 0; width: 100%; text-align: left; }
+  .nav-links a { display: block; padding: 1rem 1.5rem; border-bottom: 1px solid var(--bg-medium-gray); color: var(--text-dark); font-weight: var(--font-weight-semibold); }
+  .nav-links a.active,
+  .nav-links a:hover { background-color: var(--primary-light-bg); color: var(--primary-color); border-bottom-color: var(--primary-color); }
+  .nav-links li:last-child a { border-bottom: none; }
+  .menu-toggle { display: block; }
+  header .container { position: relative; }
+  .menu-toggle { position: absolute; top: 50%; right: 1.5rem; -webkit-transform: translateY(-50%); transform: translateY(-50%); }
+}
+
+@media (max-width: 767.98px) {
+  html { font-size: 15px; }
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.8rem; }
+  h3 { font-size: 1.5rem; }
+
+  .hero {
+    min-height: 60vh;
+    padding: 2rem 1rem;
+    -webkit-animation: none;
+            animation: none;
+    background-size: cover;
+    background-attachment: scroll;
+  }
+  .hero h2 { font-size: 2.5rem; }
+  .hero p { font-size: 1.15rem; }
+  .hero .btn { font-size: 1rem; padding: 0.8rem 1.5rem; }
+  .hero .btn.hero-btn-pulse.animate-fadeInSlideUp {
+    -webkit-animation-delay: inherit, calc(0.5s + var(--animation-duration) + 2.5s);
+            animation-delay: inherit, calc(0.5s + var(--animation-duration) + 2.5s);
+  }
+
+  .container { padding-right: 1rem; padding-left: 1rem; }
+  .page-content { padding-top: 2.5rem; padding-bottom: 3.5rem; }
+  .page-content > .container > h1:first-child { font-size: 2.2rem; margin-bottom: 2rem; }
+  .page-content section { padding: 2rem 1.5rem; margin-bottom: 2.5rem; }
+
+  .page-content section > h2:not(#welcome .welcome-text h2) {
+    text-align: center;
+  }
+  .page-content section > h2:not(#welcome .welcome-text h2)::after {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+  }
+  #welcome .welcome-text h2 { font-size: 1.7rem; }
+
+
+  #contact-details h2, #contact-form-section h2 { text-align: left; }
+  #contact-details h2::after, #contact-form-section h2::after {
+    left: 0;
+    transform: none;
+  }
+
+  /* This existing rule sets the general starting animation position for stagger items on mobile. */
+  [class*="stagger-item-"] { transform: translateY(25px); }
+
+  /* --- MODIFICATION FOR WELCOME SECTION VISIBILITY ON MOBILE --- */
+  /* Override the general mobile stagger for #welcome elements to make them visible by default. */
+  #welcome .welcome-image.stagger-item-1,
+  #welcome .welcome-text.stagger-item-2 {
+      transform: translateY(0) translateX(0); /* Set to final position */
+      opacity: 1; /* Ensure visible, as stagger-item-X starts with opacity 0 globally and might not be overridden otherwise on mobile */
+                  /* This specifically ensures opacity is 1, overriding the global [class*="stagger-item-"] opacity: 0 rule */
+  }
+  /* --- END MODIFICATION --- */
+
+
+  #welcome .welcome-image img {
+      max-width: 100%;
+      /* clip-path is handled by the global override for #welcome .welcome-image img,
+         so it will be inset(0 0 0 0) by default here as well. */
+  }
+  /* This rule remains to ensure the clip-path animates correctly if JavaScript adds .is-visible */
+  .animate-on-scroll.is-visible #welcome .welcome-image.stagger-item-1 img {
+      clip-path: inset(0 0 0 0);
+  }
+
+  #welcome .welcome-container { grid-template-columns: 1fr; }
+  #welcome .welcome-image.stagger-item-1 { order: -1; }
+
+
+  /* Services page mobile layout */
+  #truck-parts, #hydraulic-hoses { grid-template-columns: 1fr; }
+  #truck-parts .service-image,
+  #hydraulic-hoses .service-image {
+      order: -1; /* Image on top */
+      margin-bottom: 2rem;
+  }
+  #truck-parts > div:first-of-type, /* text content */
+  #hydraulic-hoses > div:last-of-type { /* text content */
+      order: 0; /* Text content below image */
+  }
+
+
+  .cta-services { padding: 2.5rem 1.5rem !important; }
+  .cta-services h3 { font-size: 1.7rem; }
+}
