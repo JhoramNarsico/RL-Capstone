@@ -14,14 +14,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- Active Navigation Link ---
-    const currentLocation = window.location.pathname.split("/").pop();
+    const currentLocation = window.location.pathname.split("/").pop() || 'index.html'; // Ensure index.html default
     const navItems = document.querySelectorAll('.nav-links a');
 
     navItems.forEach(link => {
         link.classList.remove('active');
         const linkPath = link.getAttribute('href').split("/").pop();
-        if (linkPath === currentLocation || (currentLocation === '' && linkPath === 'index.html')) {
+        // Handle root path explicitly mapping to index.html
+        if (linkPath === currentLocation || (currentLocation === 'index.html' && linkPath === '')) {
             link.classList.add('active');
+        } else if (currentLocation === '' && linkPath === 'index.html') { // Case for when server serves index.html for root
+             link.classList.add('active');
         }
     });
 
@@ -44,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const subject = document.getElementById('subject').value.trim();
             const message = document.getElementById('message').value.trim();
 
-            formStatus.classList.remove('success', 'error', 'visible'); // Reset classes
+            formStatus.classList.remove('success', 'error', 'visible', 'sending'); // Reset classes
 
             if (!name || !email || !subject || !message) {
                 formStatus.textContent = 'Please fill out all required fields.';
@@ -59,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             formStatus.textContent = 'Sending your message...';
-            formStatus.className = 'form-status visible'; 
+            formStatus.className = 'form-status sending visible'; // Use 'sending' class for specific styling
 
             setTimeout(() => {
                 formStatus.textContent = 'Message sent successfully! We will get back to you soon.';
@@ -82,18 +85,66 @@ document.addEventListener('DOMContentLoaded', function() {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    // Child elements with .stagger-item-X classes will animate via CSS
-                    // due to their transition-delay and the parent having .is-visible.
-                    observerInstance.unobserve(entry.target); // Stop observing once visible
+                    observerInstance.unobserve(entry.target);
                 }
             });
         }, {
-            threshold: 0.1 // Trigger when 10% of the element is visible
-            // rootMargin: "0px 0px -50px 0px" // Optional: adjust viewport bounds
+            threshold: 0.1
         });
 
         animatedElements.forEach(el => {
             observer.observe(el);
         });
     }
+
+    // --- SCROLLING BACKGROUND ANIMATION ---
+    const bodyElement = document.body;
+    let scrollableHeight = document.documentElement.scrollHeight - window.innerHeight; // Use let for reassignment
+
+    function animateBackgroundOnScroll() {
+        // Only run if the page is actually scrollable
+        if (scrollableHeight <= 0) {
+            // Check if the class indicating mobile view is present or viewport width
+            const isMobileView = window.innerWidth <= 767.98;
+            if (!isMobileView) { // Only reset if not in mobile view where bg is scroll
+                 bodyElement.style.backgroundPositionY = '0%';
+            }
+            return;
+        }
+
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollPercent = (scrollTop / scrollableHeight) * 100;
+
+        let newYPosition = scrollPercent;
+        newYPosition = Math.min(100, Math.max(0, newYPosition)); // Cap between 0 and 100
+
+        bodyElement.style.backgroundPositionY = newYPosition + '%';
+    }
+
+    // Initial call and listeners
+    if (scrollableHeight > 0) {
+        animateBackgroundOnScroll();
+    }
+
+    window.addEventListener('scroll', animateBackgroundOnScroll, { passive: true });
+
+    window.addEventListener('resize', () => {
+        scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+        // Re-check if fixed attachment should apply based on viewport width after resize
+        if (window.innerWidth > 767.98) {
+            bodyElement.style.backgroundAttachment = 'fixed';
+        } else {
+            bodyElement.style.backgroundAttachment = 'scroll';
+        }
+        animateBackgroundOnScroll(); // Call animation function after recalculating
+    }, { passive: true });
+
+    // Initial check for background-attachment on load
+    if (window.innerWidth <= 767.98) {
+        bodyElement.style.backgroundAttachment = 'scroll';
+    } else {
+        bodyElement.style.backgroundAttachment = 'fixed';
+    }
+    // --- END OF SCROLLING BACKGROUND ANIMATION ---
+
 });
