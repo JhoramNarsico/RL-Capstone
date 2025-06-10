@@ -1,7 +1,7 @@
 :root {
   --primary-color: #00998F;
   --primary-hover: #007F75;
-  --primary-light-bg: #E0F2F1;
+  --primary-light-bg: #E0F2F1; /* Light teal/mint */
 
   --text-dark: #263238;
   --text-medium: #546E7A;
@@ -59,7 +59,6 @@ body {
   font-weight: var(--font-weight-normal);
   line-height: 1.7;
   color: var(--text-dark);
-  background-color: var(--bg-light-gray);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -71,6 +70,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+
+  /* --- SCROLLING BACKGROUND GRADIENT --- */
+  background-image: linear-gradient(
+    170deg, /* Angle of the gradient */
+    var(--bg-light-gray) 0%,
+    #dde4e7 25%,
+    var(--primary-light-bg) 50%,
+    #c5dedb 75%,
+    var(--bg-light-gray) 100%
+  );
+  background-size: 100% 300%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 0% 0%;
+  transition: background-position 0.1s linear;
 }
 
 .visually-hidden {
@@ -168,10 +182,8 @@ p:last-child {
           animation-timing-function: ease-out;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
-  /* animation-delay is applied via inline style in HTML */
 }
 
-/* --- Ken Burns for Hero Background --- */
 @-webkit-keyframes kenBurns {
   0% { background-size: 100% 100%; background-position: 50% 50%; }
   100% { background-size: 115% 115%; background-position: 50% 50%; }
@@ -181,7 +193,6 @@ p:last-child {
   100% { background-size: 115% 115%; background-position: 50% 50%; }
 }
 
-/* --- Pulse Animation for Hero Button --- */
 @-webkit-keyframes pulseBtn {
   0%, 100% { -webkit-transform: scale(1) translateY(0); transform: scale(1) translateY(0); -webkit-box-shadow: var(--shadow-sm); box-shadow: var(--shadow-sm); }
   50% { -webkit-transform: scale(1.03) translateY(-2px); transform: scale(1.03) translateY(-2px); -webkit-box-shadow: var(--shadow-lg); box-shadow: var(--shadow-lg); }
@@ -205,19 +216,16 @@ p:last-child {
           animation-delay: inherit, calc(0.5s + var(--animation-duration) + 1.5s);
 }
 
-
-/* --- Intersection Observer Animations --- */
 .animate-on-scroll {
-    opacity: 0; /* Start hidden, will become visible via .is-visible */
+    opacity: 0;
 }
 .animate-on-scroll.is-visible {
-    opacity: 1; /* Make parent container visible, children will follow based on their delays */
+    opacity: 1;
 }
 
-/* Child Stagger Items Base Styles */
 [class*="stagger-item-"] {
     opacity: 0;
-    transform: translateY(40px); /* MODIFIED: Ensure no translateX here by default */
+    transform: translateY(40px);
     transition-property: opacity, transform;
     transition-duration: var(--animation-duration);
     transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
@@ -225,7 +233,7 @@ p:last-child {
 
 .animate-on-scroll.is-visible [class*="stagger-item-"] {
     opacity: 1;
-    transform: translateY(0) translateX(0); /* Ensure both axes are reset for final state */
+    transform: translateY(0) translateX(0);
 }
 
 .stagger-item-1 { transition-delay: 0.1s; }
@@ -235,38 +243,31 @@ p:last-child {
 .stagger-item-5 { transition-delay: 0.5s; }
 .stagger-item-6 { transition-delay: 0.6s; }
 
-/* Specific initial transforms for #welcome stagger items */
 #welcome .welcome-image.stagger-item-1 {
-    transform: translateY(40px); /* MODIFIED: Removed translateX(-50px) */
+    transform: translateY(40px);
 }
 #welcome .welcome-text.stagger-item-2 {
-    transform: translateY(40px); /* MODIFIED: Removed translateX(50px) */
+    transform: translateY(40px);
 }
 
-/* Clip-path animation for the #welcome image */
 #welcome .welcome-image.stagger-item-1 img {
     display: block;
-    clip-path: inset(0 50% 0 50%); /* MODIFIED: Start clipped from horizontal center */
+    clip-path: inset(0 50% 0 50%);
     width: 100%;
     max-width: 550px;
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-xl);
     margin: 0 auto 1.5rem auto;
     border: 4px solid transparent;
-
-    transition: clip-path var(--animation-duration) cubic-bezier(0.25, 1, 0.5, 1) 0.1s, /* MODIFIED: Ensure delay matches stagger-item-1 */
+    transition: clip-path var(--animation-duration) cubic-bezier(0.25, 1, 0.5, 1) 0.1s,
                 transform var(--transition-base),
                 box-shadow var(--transition-base),
                 border-color var(--transition-fast);
 }
 #welcome.is-visible .welcome-image.stagger-item-1 img {
-    clip-path: inset(0 0 0 0); /* Reveal image */
+    clip-path: inset(0 0 0 0);
 }
 
-
-/* --- Unique Animations for Sections --- */
-
-/* Section 2: Welcome Section (#welcome) */
 #welcome.animate-on-scroll {
     transform: translateX(-70px) scale(0.97);
     filter: blur(2px);
@@ -279,7 +280,6 @@ p:last-child {
     filter: blur(0px);
 }
 
-/* Section 3: Key Offerings Section (#key-offerings) */
 #key-offerings.animate-on-scroll {
     transform: scale(0.85) translateY(60px);
     filter: brightness(0.7);
@@ -292,7 +292,6 @@ p:last-child {
     filter: brightness(1);
 }
 
-/* Section 4: Why Us Section (#why-us) */
 #why-us.animate-on-scroll {
     transform: translateY(90px) rotateX(-15deg) scale(0.95);
     transform-origin: top center;
@@ -302,12 +301,7 @@ p:last-child {
 #why-us.animate-on-scroll.is-visible {
     transform: translateY(0) rotateX(0deg) scale(1);
 }
-/* --- END OF UNIQUE SECTION ANIMATIONS --- */
 
-
-/* ==========================================================================
-   3. LAYOUT (_layout.css)
-   ========================================================================== */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -317,14 +311,14 @@ p:last-child {
   padding-left: 1.5rem;
 }
 
+/* --- REVISED HEADER STYLES --- */
 header {
-  background: var(--bg-white);
+  background: var(--primary-light-bg); /* Light teal/mint background */
   position: sticky;
   top: 0;
   z-index: 1030;
-  -webkit-box-shadow: var(--shadow-md);
-          box-shadow: var(--shadow-md);
-  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm); /* Softer shadow */
+  border-bottom: 2px solid var(--primary-color); /* Accent border */
   height: var(--header-height);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -360,7 +354,6 @@ header .container {
   text-decoration: none;
 }
 
-
 .nav-links {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -380,11 +373,11 @@ header .container {
   font-size: 0.95rem;
   text-transform: none;
   letter-spacing: 0;
-  padding: 0.75rem 0.25rem;
+  padding: 0.75rem 0.35rem; /* Slightly more horizontal padding */
   border-bottom: 3px solid transparent;
   -webkit-transition: var(--transition-base);
   transition: var(--transition-base);
-  color: var(--text-medium);
+  color: var(--text-dark); /* Darker text for better contrast on new header bg */
 }
 
 .nav-links a:hover,
@@ -400,14 +393,14 @@ header .container {
   border: none;
   cursor: pointer;
   padding: 0.5rem;
-  z-index: 1040;
+  z-index: 1040; /* Ensure it's above mobile nav if they overlap in DOM order */
 }
 
-.menu-toggle span {
+.menu-toggle span { /* Hamburger icon lines */
   display: block;
   width: 28px;
   height: 3px;
-  background-color: var(--text-dark);
+  background-color: var(--text-dark); /* Ensures visibility on new header bg */
   margin: 6px 0;
   -webkit-transition: var(--transition-slow);
   transition: var(--transition-slow);
@@ -417,7 +410,7 @@ header .container {
 .menu-toggle.open span:nth-child(1) { -webkit-transform: translateY(9px) rotate(45deg); transform: translateY(9px) rotate(45deg); }
 .menu-toggle.open span:nth-child(2) { opacity: 0; }
 .menu-toggle.open span:nth-child(3) { -webkit-transform: translateY(-9px) rotate(-45deg); transform: translateY(-9px) rotate(-45deg); }
-
+/* --- END OF REVISED HEADER STYLES --- */
 
 .page-content {
   padding-top: 3.5rem;
@@ -425,7 +418,6 @@ header .container {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-  background-color: var(--bg-light-gray);
 }
 
 .page-content > .container > h1:first-child {
@@ -451,7 +443,7 @@ header .container {
     margin-bottom: 0;
 }
 
-.page-content section > h2 { /* General heading for sections if one exists as direct child */
+.page-content section > h2 {
   color: var(--text-dark);
   font-weight: var(--font-weight-bold);
   position: relative;
@@ -469,33 +461,43 @@ header .container {
     background-color: var(--primary-color);
 }
 
-
+/* --- REVISED FOOTER STYLES --- */
 footer {
   background: var(--text-dark);
   color: var(--bg-medium-gray);
   text-align: center;
-  padding: 3rem 0;
+  padding: 3.5rem 1.5rem; /* Increased padding */
   margin-top: auto;
-  border-top: 4px solid var(--primary-color);
+  border-top: 5px solid var(--primary-color); /* Thicker top border */
+  position: relative;
 }
 
 footer p {
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
+  margin-bottom: 0.85rem; /* Slightly more spacing */
+  font-size: 0.9rem;    /* Slightly smaller */
+  line-height: 1.6;
   color: var(--bg-medium-gray);
 }
 
-footer a {
-  color: var(--primary-color);
-  font-weight: var(--font-weight-bold);
-}
-footer a:hover {
-  color: var(--bg-white);
+footer p:last-child {
+    margin-bottom: 0;
 }
 
-/* ==========================================================================
-   4. COMPONENTS (_components.css)
-   ========================================================================== */
+footer a {
+  color: var(--primary-light-bg);    /* Lighter teal for links */
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--primary-light-bg); /* Subtle dotted underline */
+  padding-bottom: 2px;
+  -webkit-transition: color var(--transition-fast), border-bottom-color var(--transition-fast);
+  transition: color var(--transition-fast), border-bottom-color var(--transition-fast);
+}
+footer a:hover {
+  color: var(--bg-white); /* Brighter white on hover */
+  border-bottom-color: var(--bg-white);
+}
+/* --- END OF REVISED FOOTER STYLES --- */
+
 .btn {
   display: inline-block;
   font-family: var(--font-family-headings);
@@ -549,9 +551,6 @@ footer a:hover {
 .form-status.success { color: #0f5132; background-color: #d1e7dd; border: 1px solid #badbcc; }
 .form-status.error { color: #842029; background-color: #f8d7da; border: 1px solid #f5c2c7; }
 
-/* ==========================================================================
-   PAGE-SPECIFIC: HOME (_home.css)
-   ========================================================================== */
 .hero {
   color: var(--bg-white);
   text-align: center;
@@ -602,7 +601,6 @@ footer a:hover {
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
-
 .hero p {
   font-size: 1.4rem;
   margin-bottom: 3rem;
@@ -636,7 +634,7 @@ footer a:hover {
 
 #welcome .welcome-container {
     display: grid;
-    grid-template-columns: 1fr; /* Default for mobile */
+    grid-template-columns: 1fr;
     gap: 2.5rem;
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -686,7 +684,6 @@ footer a:hover {
     margin-bottom: 0;
 }
 
-
 #key-offerings h2 {
   text-align: center;
 }
@@ -695,7 +692,6 @@ footer a:hover {
     -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
 }
-
 
 #key-offerings .offerings-grid {
   display: grid;
@@ -745,7 +741,6 @@ footer a:hover {
   -webkit-transform: scale(1.08);
           transform: scale(1.08);
 }
-
 
 .offering-item h3 {
   margin-bottom: 0.75rem;
@@ -861,7 +856,6 @@ footer a:hover {
     color: var(--primary-hover);
 }
 
-
 .service-image {
     width: 100%;
     max-width: 450px;
@@ -966,7 +960,7 @@ footer a:hover {
 
 @media (min-width: 768px) {
   #welcome .welcome-container {
-      grid-template-columns: 1fr 1fr; /* MODIFIED: Equal columns for better balance */
+      grid-template-columns: 1fr 1fr;
       gap: 4rem;
       align-items: center;
   }
@@ -974,7 +968,6 @@ footer a:hover {
     -webkit-box-ordinal-group: 0;
         -ms-flex-order: -1;
             order: -1;
-    /* Initial transform for this element is handled by the general #welcome .welcome-image.stagger-item-1 rule above */
   }
   #welcome .welcome-image.stagger-item-1 img {
       margin: 0 auto;
@@ -1010,20 +1003,20 @@ footer a:hover {
   }
 }
 
+/* --- REVISED MOBILE NAVIGATION STYLES --- */
 @media (max-width: 991.98px) {
   .nav-links {
     display: none;
     -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column;
     width: 100%;
-    background-color: var(--bg-white);
+    background-color: var(--primary-light-bg); /* Match header background */
     position: absolute;
-    top: calc(var(--header-height) - 1px);
+    top: calc(var(--header-height) - 2px); /* Adjust if border changed height perception */
     left: 0;
     padding: 0.5rem 0;
-    -webkit-box-shadow: var(--shadow-lg);
-            box-shadow: var(--shadow-lg);
-    border-top: 1px solid var(--border-color);
-    z-index: 1039;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Adjusted shadow */
+    border-top: 1px solid var(--primary-color); /* Thin top border for separation */
+    z-index: 1029; /* Ensure it's below the menu toggle but above content */
   }
   .nav-links.open {
     display: -webkit-box; display: -ms-flexbox; display: flex;
@@ -1031,14 +1024,35 @@ footer a:hover {
             animation: fadeIn 0.3s ease-out;
   }
   .nav-links li { margin: 0; width: 100%; text-align: left; }
-  .nav-links a { display: block; padding: 1rem 1.5rem; border-bottom: 1px solid var(--bg-medium-gray); color: var(--text-dark); font-weight: var(--font-weight-semibold); }
+  .nav-links a {
+    display: block;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.08); /* More subtle separator */
+    color: var(--text-dark); /* Ensure good contrast */
+    font-weight: var(--font-weight-semibold);
+  }
   .nav-links a.active,
-  .nav-links a:hover { background-color: var(--primary-light-bg); color: var(--primary-color); border-bottom-color: var(--primary-color); }
-  .nav-links li:last-child a { border-bottom: none; }
+  .nav-links a:hover {
+    background-color: var(--bg-white); /* Use white for active/hover item background */
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color); /* Highlight bottom border too */
+  }
+  .nav-links li:last-child a {
+    border-bottom: none;
+  }
   .menu-toggle { display: block; }
-  header .container { position: relative; }
-  .menu-toggle { position: absolute; top: 50%; right: 1.5rem; -webkit-transform: translateY(-50%); transform: translateY(-50%); }
+  header .container { position: relative; } /* Ensures toggle is positioned relative to container */
+  .menu-toggle {
+    position: absolute;
+    top: 50%;
+    right: 1.5rem; /* Or adjust based on your container padding */
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    z-index: 1040; /* Ensure toggle is above the nav links when open */
+  }
 }
+/* --- END OF REVISED MOBILE NAVIGATION STYLES --- */
+
 
 @media (max-width: 767.98px) {
   html { font-size: 15px; }
@@ -1052,7 +1066,6 @@ footer a:hover {
     -webkit-animation: none;
             animation: none;
     background-size: cover;
-    background-attachment: scroll;
   }
   .hero h2 { font-size: 2.5rem; }
   .hero p { font-size: 1.15rem; }
@@ -1085,17 +1098,6 @@ footer a:hover {
   }
   #welcome .welcome-container {
       gap: 2rem;
-      grid-template-columns: 1fr; /* Ensure single column for mobile */
-  }
-
-  [class*="stagger-item-"] { transform: translateY(25px); } /* MODIFIED: Base mobile stagger transform */
-
-  #welcome .welcome-image.stagger-item-1 {
-    transform: translateY(25px); /* MODIFIED: Removed translateX(-30px) */
-    order: -1; /* Image appears first on mobile */
-  }
-  #welcome .welcome-text.stagger-item-2 {
-    transform: translateY(25px); /* MODIFIED: Removed translateX(30px) */
   }
 
   .page-content section > h2:not(#welcome .welcome-text h2):not(#key-offerings h2):not(#why-us h2) {
@@ -1113,6 +1115,20 @@ footer a:hover {
     transform: none;
   }
 
+  [class*="stagger-item-"] { transform: translateY(25px); }
+
+  #welcome .welcome-image.stagger-item-1 {
+    transform: translateY(25px);
+    order: -1;
+  }
+  #welcome .welcome-text.stagger-item-2 {
+    transform: translateY(25px);
+  }
+
+  #welcome .welcome-container {
+      grid-template-columns: 1fr;
+  }
+
   #truck-parts, #hydraulic-hoses { grid-template-columns: 1fr; }
   #truck-parts .service-image,
   #hydraulic-hoses .service-image {
@@ -1123,7 +1139,6 @@ footer a:hover {
   #hydraulic-hoses > div:last-of-type {
       order: 0;
   }
-
 
   .cta-services { padding: 2.5rem 1.5rem !important; }
   .cta-services h3 { font-size: 1.7rem; }
@@ -1142,5 +1157,9 @@ footer a:hover {
   }
   #why-us ul li strong {
     font-size: 1.15rem;
+  }
+
+  body {
+    background-attachment: scroll; /* Important for mobile performance/compatibility */
   }
 }
