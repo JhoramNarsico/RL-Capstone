@@ -1,0 +1,300 @@
+/* --- ABOUT US PAGE - SPECIFIC STYLES --- */
+.about-page .page-content > .container > h1:first-child {
+    font-size: 3.2rem;
+    margin-bottom: 3rem;
+}
+
+#company-legacy .section-intro {
+    font-family: var(--font-family-automotive-body);
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#company-legacy p:not(.section-intro) {
+    font-family: var(--font-family-automotive-body);
+    font-size: 1.1rem;
+    line-height: 1.75;
+    text-align: center;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--text-medium);
+    font-weight: 500;
+}
+#company-legacy p strong, #our-journey p strong, #core-philosophy p strong {
+    font-family: var(--font-family-automotive-body);
+    font-weight: 700; /* Bold weight for Rajdhani */
+    color: var(--text-dark);
+}
+
+.company-legacy-image {
+    display: block;
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: var(--border-radius-lg);
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Timeline for Our Journey */
+#our-journey h2 {
+    text-align: center;
+}
+#our-journey h2::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem 0;
+}
+
+.timeline::before { /* The central line */
+    content: '';
+    position: absolute;
+    left: 25px; /* Adjust based on icon size */
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: var(--primary-light-bg);
+    border-radius: 2px;
+}
+
+.timeline-item {
+    padding-left: 70px; /* Space for icon and line */
+    position: relative;
+    margin-bottom: 3rem;
+}
+.timeline-item.animate-on-scroll {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s; /* Delay to allow parent section to appear */
+}
+.timeline-item.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-icon {
+    position: absolute;
+    left: 0;
+    top: 0; /* Align with top of timeline-content */
+    transform: translateY(calc(1.5rem - (50px / 2) + 2px)); /* Align icon center with first line of text approximately (padding-top of content - half icon height + half border) */
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: var(--shadow-md);
+    z-index: 1;
+    border: 3px solid var(--bg-white);
+}
+.timeline-item:first-child .timeline-icon {
+    transform: translateY(0); /* For the very first item, align icon top with content top */
+}
+
+.timeline-content {
+    background-color: var(--bg-white);
+    padding: 1.5rem 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    border-left: 4px solid var(--primary-color);
+}
+.timeline-content h3 {
+    font-family: var(--font-family-headings);
+    color: var(--primary-hover);
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.6rem;
+}
+.timeline-content p {
+    font-family: var(--font-family-automotive-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-medium);
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+/* Core Philosophy Section */
+#core-philosophy h2 {
+    text-align: center;
+}
+#core-philosophy h2::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mission-statement {
+    background-color: var(--primary-light-bg);
+    padding: 2.5rem;
+    border-radius: var(--border-radius-lg);
+    margin-bottom: 3rem;
+    text-align: center;
+    border-left: 5px solid var(--primary-color);
+    border-right: 5px solid var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+.mission-statement h3 {
+    font-family: var(--font-family-headings);
+    color: var(--primary-hover);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+.mission-statement p {
+    font-family: var(--font-family-automotive-body);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 500;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.value-card {
+    background-color: var(--bg-white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    border-top: 4px solid var(--primary-color);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.value-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+}
+
+.value-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    background-color: var(--primary-light-bg);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+.value-card:hover .value-icon {
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+}
+
+.value-card h4 {
+    font-family: var(--font-family-headings);
+    color: var(--text-dark);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: var(--font-weight-semibold);
+}
+.value-card p {
+    font-family: var(--font-family-automotive-body);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-medium);
+    margin-bottom: 0;
+    font-weight: 500;
+    flex-grow: 1;
+}
+
+/* --- ABOUT US RESPONSIVE --- */
+@media (max-width: 767.98px) {
+  .about-page .page-content > .container > h1:first-child {
+      font-size: 2.5rem; /* Adjust for mobile */
+  }
+  #company-legacy .section-intro {
+      font-size: 1.1rem;
+  }
+  #company-legacy p:not(.section-intro) {
+      font-size: 1rem;
+  }
+
+  .about-page section h2 {
+    text-align: center;
+  }
+  .about-page section h2::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .timeline::before {
+      left: 20px; /* Adjust for smaller icon on mobile */
+  }
+  .timeline-item {
+      padding-left: 55px; /* Adjust for smaller icon on mobile */
+  }
+  .timeline-icon {
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      left: 0; /* Ensures it stays aligned with the timeline line */
+  }
+   .timeline-item:first-child .timeline-icon {
+      transform: translateY(0);
+  }
+
+  .timeline-content h3 {
+      font-size: 1.4rem;
+  }
+  .timeline-content p {
+      font-size: 0.95rem;
+  }
+
+  .mission-statement {
+      padding: 2rem 1.5rem;
+  }
+  .mission-statement h3 {
+      font-size: 1.7rem;
+  }
+  .mission-statement p {
+      font-size: 1.05rem;
+  }
+
+  .value-card {
+      padding: 1.5rem;
+  }
+  .value-icon {
+      width: 60px;
+      height: 60px;
+      font-size: 2rem;
+  }
+  .value-card h4 {
+      font-size: 1.3rem;
+  }
+  .value-card p {
+      font-size: 0.9rem;
+  }
+}

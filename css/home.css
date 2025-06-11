@@ -1,0 +1,484 @@
+/* --- HOMEPAGE SPECIFIC STYLES --- */
+
+.hero {
+  color: var(--bg-white);
+  text-align: center;
+  position: relative;
+  background-image: url('../images/hero-bg.jpg');
+  background-size: 100% 100%;
+  background-position: center center;
+  min-height: 75vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 3rem 1.5rem;
+  overflow: hidden;
+  -webkit-animation: kenBurns 25s infinite alternate ease-in-out;
+          animation: kenBurns 25s infinite alternate ease-in-out;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba(0, 80, 75, 0.75) 0%, rgba(10, 20, 25, 0.65) 100%);
+  z-index: 1;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+
+.hero h2 {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--bg-white);
+  font-weight: var(--font-weight-extrabold);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.hero h2:hover {
+    color: #f8f9fa;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.hero p {
+  font-size: 1.4rem;
+  margin-bottom: 3rem;
+  color: var(--bg-light-gray);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: var(--font-weight-light);
+}
+
+.hero .btn {
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  background-color: var(--primary-color);
+  color: var(--text-on-primary);
+  border-color: var(--primary-color);
+  transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+}
+.hero .btn:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    -webkit-transform: translateY(-3px) scale(1.05);
+            transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-lg), 0 0 15px var(--primary-color);
+}
+.hero .btn.hero-btn-pulse.animate-fadeInSlideUp {
+  -webkit-animation-name: fadeInSlideUp, pulseBtn;
+          animation-name: fadeInSlideUp, pulseBtn;
+  -webkit-animation-duration: var(--animation-duration), 2.5s;
+          animation-duration: var(--animation-duration), 2.5s;
+  -webkit-animation-timing-function: ease-out, ease-in-out;
+          animation-timing-function: ease-out, ease-in-out;
+  -webkit-animation-fill-mode: forwards, forwards;
+          animation-fill-mode: forwards, forwards;
+  -webkit-animation-iteration-count: 1, infinite;
+          animation-iteration-count: 1, infinite;
+  -webkit-animation-delay: inherit, calc(0.5s + var(--animation-duration) + 1.5s);
+          animation-delay: inherit, calc(0.5s + var(--animation-duration) + 1.5s);
+}
+
+.page-content section#welcome { /* Specific styling for homepage welcome section */
+    padding: 4rem 2.5rem;
+    box-shadow: var(--shadow-lg);
+}
+
+#welcome .welcome-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+#welcome .welcome-image.stagger-item-1 img {
+    display: block;
+    clip-path: inset(0 50% 0 50%);
+    width: 100%;
+    max-width: 550px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-xl);
+    margin: 0 auto 1.5rem auto;
+    border: 4px solid transparent;
+    transition: clip-path var(--animation-duration) cubic-bezier(0.25, 1, 0.5, 1) 0.1s,
+                transform var(--transition-base),
+                box-shadow var(--transition-base),
+                border-color var(--transition-fast);
+}
+#welcome.is-visible .welcome-image.stagger-item-1 img {
+    clip-path: inset(0 0 0 0);
+}
+
+#welcome .welcome-image.stagger-item-1 img:hover {
+    -webkit-transform: scale(1.05) translateY(-8px);
+            transform: scale(1.05) translateY(-8px);
+    -webkit-box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    border-color: var(--primary-color);
+}
+
+#welcome .welcome-text {
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+#welcome .welcome-text h2 {
+  font-size: 2.8rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+  text-align: left;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+#welcome .welcome-text h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 70px;
+  height: 3px;
+  background-color: var(--primary-hover);
+  transform: none;
+}
+
+#welcome .welcome-text p {
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+}
+#welcome .welcome-text p:last-child {
+    margin-bottom: 0;
+}
+
+#key-offerings h2 {
+  text-align: center;
+}
+#key-offerings h2::after {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+}
+
+#key-offerings .offerings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+}
+
+.offering-item {
+  padding: 2.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+  background-color: var(--bg-white);
+  -webkit-box-shadow: var(--shadow-md);
+          box-shadow: var(--shadow-md);
+  -webkit-transition: -webkit-transform var(--transition-base), -webkit-box-shadow var(--transition-base), background-color var(--transition-fast), border-top-color var(--transition-fast);
+  transition: -webkit-transform var(--transition-base), -webkit-box-shadow var(--transition-base), background-color var(--transition-fast), border-top-color var(--transition-fast);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-fast), border-top-color var(--transition-fast);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-fast), border-top-color var(--transition-fast), -webkit-transform var(--transition-base), -webkit-box-shadow var(--transition-base);
+  position: relative;
+  border-top: 4px solid var(--primary-color);
+}
+
+.offering-item:hover {
+  -webkit-transform: translateY(-8px);
+          transform: translateY(-8px);
+  -webkit-box-shadow: var(--shadow-xl);
+          box-shadow: var(--shadow-xl);
+  background-color: var(--primary-light-bg);
+  border-top-color: var(--primary-hover);
+}
+
+.offering-item img {
+  max-height: 140px;
+  width: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin-bottom: 1.5rem;
+  border-radius: var(--border-radius);
+  -webkit-transition: -webkit-transform var(--transition-base), filter var(--transition-fast);
+  transition: -webkit-transform var(--transition-base), filter var(--transition-fast);
+  transition: transform var(--transition-base), filter var(--transition-fast);
+  transition: transform var(--transition-base), filter var(--transition-fast), -webkit-transform var(--transition-base);
+}
+
+.offering-item:hover img {
+  -webkit-transform: scale(1.08);
+          transform: scale(1.08);
+}
+
+.offering-item h3 {
+  margin-bottom: 0.75rem;
+  color: var(--primary-color);
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-semibold);
+  position: relative;
+  padding-bottom: 0.5rem;
+  transition: color var(--transition-fast);
+}
+
+.offering-item h3::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background-color: var(--primary-hover);
+    transition: width var(--transition-fast) ease-out;
+}
+.offering-item:hover h3::after {
+    width: 60%;
+}
+
+.offering-item p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  transition: color var(--transition-fast);
+}
+
+#why-us h2 {
+  text-align: center;
+}
+#why-us h2::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#why-us ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  text-align: left;
+  padding-left: 0;
+}
+
+#why-us ul li[class*="stagger-item-"] {
+    background-color: var(--bg-white);
+    padding: 2.5rem 2rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    border-top: 4px solid transparent;
+    color: var(--text-medium);
+    transition: box-shadow var(--transition-base) ease-in-out,
+                border-top-color var(--transition-base) ease-in-out,
+                transform var(--transition-base) ease-in-out,
+                opacity var(--animation-duration) cubic-bezier(0.25, 1, 0.5, 1), /* from stagger base */
+                transform var(--animation-duration) cubic-bezier(0.25, 1, 0.5, 1); /* from stagger base */
+}
+
+/* This rule is important for #why-us on homepage, ensuring border animates when parent becomes visible */
+#why-us.animate-on-scroll.is-visible ul li[class*="stagger-item-"] {
+    border-top-color: var(--primary-color);
+}
+
+#why-us ul li:hover {
+    transform: translateY(-6px) translateX(0) !important; /* translateX(0) to override potential stagger transform */
+    box-shadow: var(--shadow-xl);
+}
+
+#why-us ul li::before {
+    content: "✔";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--primary-light-bg);
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 1.25rem;
+    flex-shrink: 0;
+    line-height: 1;
+    transition: background-color var(--transition-fast),
+                color var(--transition-fast),
+                transform var(--transition-fast);
+}
+
+#why-us ul li:hover::before {
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+    transform: scale(1.1) rotate(5deg);
+}
+
+#why-us ul li strong {
+    color: var(--text-dark);
+    font-weight: var(--font-weight-semibold);
+    font-size: 1.3rem;
+    display: block;
+    margin-bottom: 0.6rem;
+    line-height: 1.4;
+    transition: color var(--transition-fast);
+}
+
+#why-us ul li:hover strong {
+    color: var(--primary-hover);
+}
+
+
+/* --- HOMEPAGE SPECIFIC SECTION ANIMATIONS --- */
+/* These will override the generic .page-content section.animate-on-scroll due to ID specificity */
+#welcome .welcome-image.stagger-item-1 {
+    transform: translateY(40px); /* Initial state for stagger */
+}
+#welcome .welcome-text.stagger-item-2 {
+    transform: translateY(40px); /* Initial state for stagger */
+}
+
+#welcome.animate-on-scroll {
+    opacity: 0; /* Initial state for the section itself */
+    transform: translateX(-70px) scale(0.97);
+    filter: blur(2px);
+    transition: opacity 0.8s ease-out,
+                transform 0.85s cubic-bezier(0.23, 1, 0.32, 1.05),
+                filter 0.7s ease-out;
+}
+#welcome.animate-on-scroll.is-visible {
+    opacity: 1; /* Final state for the section itself */
+    transform: translateX(0) scale(1);
+    filter: blur(0px);
+}
+
+#key-offerings.animate-on-scroll {
+    opacity: 0; /* Initial state */
+    transform: scale(0.85) translateY(60px);
+    filter: brightness(0.7);
+    transition: opacity 0.75s ease-in-out,
+                transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+                filter 0.75s ease-in-out;
+}
+#key-offerings.animate-on-scroll.is-visible {
+    opacity: 1; /* Final state */
+    transform: scale(1) translateY(0);
+    filter: brightness(1);
+}
+
+#why-us.animate-on-scroll {
+    opacity: 0; /* Initial state */
+    transform: translateY(90px) rotateX(-15deg) scale(0.95);
+    transform-origin: top center;
+    transition: opacity 0.8s ease-out,
+                transform 1s cubic-bezier(0.19, 1, 0.22, 1.05);
+}
+#why-us.animate-on-scroll.is-visible {
+    opacity: 1; /* Final state */
+    transform: translateY(0) rotateX(0deg) scale(1);
+}
+/* --- END OF HOMEPAGE SPECIFIC SECTION ANIMATIONS --- */
+
+
+/* --- HOMEPAGE RESPONSIVE STYLES --- */
+@media (min-width: 768px) {
+  #welcome .welcome-container {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+  }
+  #welcome .welcome-image.stagger-item-1 {
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
+  }
+  #welcome .welcome-image.stagger-item-1 img {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 550px;
+  }
+}
+
+
+@media (max-width: 767.98px) {
+  .hero {
+    min-height: 60vh;
+    padding: 2rem 1rem;
+    -webkit-animation: none;
+            animation: none;
+    background-size: cover;
+  }
+  .hero h2 { font-size: 2.5rem; }
+  .hero p { font-size: 1.15rem; }
+  .hero .btn { font-size: 1rem; padding: 0.8rem 1.5rem; }
+  .hero .btn.hero-btn-pulse.animate-fadeInSlideUp {
+    -webkit-animation-delay: inherit, calc(0.5s + var(--animation-duration) + 2.5s);
+            animation-delay: inherit, calc(0.5s + var(--animation-duration) + 2.5s);
+  }
+
+  .page-content section#welcome {
+      padding: 3rem 1.5rem;
+  }
+  #welcome .welcome-text {
+      padding: 1.5rem;
+  }
+  #welcome .welcome-text h2 {
+      font-size: 2.2rem;
+  }
+  #welcome .welcome-text p {
+      font-size: 1.05rem;
+  }
+  #welcome .welcome-image.stagger-item-1 img {
+      max-width: 100%;
+      margin: 0 auto 2rem auto;
+  }
+  #welcome .welcome-container {
+      gap: 2rem;
+  }
+
+  #welcome .welcome-image.stagger-item-1 {
+    transform: translateY(25px); /* Mobile adjustment */
+    order: -1;
+  }
+  #welcome .welcome-text.stagger-item-2 {
+    transform: translateY(25px); /* Mobile adjustment */
+  }
+
+  #welcome .welcome-container {
+      grid-template-columns: 1fr;
+  }
+
+  #key-offerings h2, #why-us h2 {
+    text-align: center;
+  }
+  #key-offerings h2::after, #why-us h2::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #why-us ul {
+    gap: 1.5rem;
+  }
+  #why-us ul li[class*="stagger-item-"] {
+    padding: 2rem 1.5rem;
+  }
+  #why-us ul li::before {
+    width: 40px;
+    height: 40px;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  #why-us ul li strong {
+    font-size: 1.15rem;
+  }
+}
