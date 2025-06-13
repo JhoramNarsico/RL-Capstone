@@ -1,0 +1,94 @@
+/* css/dashboard.css */
+.dashboard-page h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.dashboard-page section {
+    background-color: var(--bg-white);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 2rem;
+}
+
+.dashboard-page section h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--primary-light-bg);
+    padding-bottom: 0.5rem;
+}
+
+#add-item-section .form-group {
+    margin-bottom: 1rem;
+}
+#add-item-section .btn {
+    margin-top: 1rem;
+}
+
+#inventoryTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+}
+
+#inventoryTable th, #inventoryTable td {
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+#inventoryTable th {
+    background-color: var(--primary-light-bg);
+    color: var(--primary-hover);
+    font-weight: var(--font-weight-bold);
+}
+
+#inventoryTable tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+#inventoryTable tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+#inventoryTable .btn-sm {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+    margin-right: 0.3rem;
+}
+#inventoryTable .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+#inventoryTable .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+.status-message {
+    text-align: center;
+    padding: 1rem;
+    color: var(--text-medium);
+}
+.dashboard-page .controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+.dashboard-page .controls input[type="text"]{
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    flex-grow: 1;
+}
+.dashboard-page #logoutButton {
+    background-color: var(--text-medium);
+    border-color: var(--text-medium);
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+.dashboard-page #logoutButton:hover {
+    background-color: var(--text-light);
+    border-color: var(--text-light);
+}

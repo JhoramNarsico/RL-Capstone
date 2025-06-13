@@ -307,8 +307,17 @@ header .container {
 }
 
 .nav-links li {
-  margin-left: 1.75rem;
+  margin-left: 1.75rem; /* Default spacing for desktop */
 }
+/* Adjust margin for the first actual nav link if auth links are present and displayed differently */
+.nav-links li:first-child:not(#auth-links-container):not(#user-info-container) {
+    margin-left: 0; /* No left margin for the very first standard nav item */
+}
+/* If auth links are first, they might need different spacing */
+#auth-links-container, #user-info-container {
+    margin-left: 1.75rem; /* Keep consistent spacing for these as well on desktop */
+}
+
 
 .nav-links a {
   font-family: var(--font-family-headings);
@@ -483,17 +492,91 @@ footer a:hover {
   -webkit-transform: translateY(0);
           transform: translateY(0);
 }
+.btn.btn-secondary { /* For logout button or less prominent actions */
+    background-color: var(--text-light);
+    border-color: var(--text-light);
+}
+.btn.btn-secondary:hover {
+    background-color: var(--text-medium);
+    border-color: var(--text-medium);
+}
+.btn.btn-sm { /* For smaller buttons like in tables or header */
+    padding: 0.4em 0.8em;
+    font-size: 0.85rem;
+}
+
 
 .form-group { margin-bottom: 1.5rem; }
 .form-group label { display: block; margin-bottom: 0.5rem; font-weight: var(--font-weight-semibold); color: var(--text-medium); font-size: 0.9rem; }
-.form-group input[type=text], .form-group input[type=email], .form-group input[type=tel], .form-group textarea { width: 100%; padding: 0.875rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius); font-size: 1rem; font-family: var(--font-family-sans-serif); color: var(--text-dark); background-color: var(--bg-white); box-shadow: none; transition: border-color var(--transition-fast), box-shadow var(--transition-fast); line-height: 1.5; }
+.form-group input[type=text], .form-group input[type=email], .form-group input[type=tel], .form-group input[type=password], .form-group textarea { width: 100%; padding: 0.875rem 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius); font-size: 1rem; font-family: var(--font-family-sans-serif); color: var(--text-dark); background-color: var(--bg-white); box-shadow: none; transition: border-color var(--transition-fast), box-shadow var(--transition-fast); line-height: 1.5; }
 .form-group input:focus, .form-group textarea:focus { border-color: var(--primary-color); outline: 0; box-shadow: 0 0 0 0.2rem rgba(0, 153, 143, 0.2); }
 .form-group textarea { resize: vertical; min-height: 120px; }
+
 .form-status { margin-top: 1.25rem; font-weight: var(--font-weight-semibold); padding: 0.875rem 1.25rem; border-radius: var(--border-radius); text-align: center; font-size: 0.95rem; opacity: 0; max-height: 0; overflow: hidden; transition: opacity var(--transition-fast), max-height var(--transition-slow) ease-in-out, padding var(--transition-slow) ease-in-out; }
 .form-status.visible { opacity: 1; max-height: 100px; padding: 0.875rem 1.25rem; }
 .form-status.sending { color: var(--text-medium); background-color: var(--bg-light-gray); border: 1px solid var(--border-color); }
 .form-status.success { color: #0f5132; background-color: #d1e7dd; border: 1px solid #badbcc; }
 .form-status.error { color: #842029; background-color: #f8d7da; border: 1px solid #f5c2c7; }
+
+
+/* --- START: NEW/MODIFIED STYLES FOR HEADER AUTHENTICATION --- */
+#auth-links-container .auth-link {
+    font-weight: var(--font-weight-semibold);
+    padding: 0.5em 0.8em;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    transition: all 0.2s ease;
+    color: var(--primary-color);
+    /* For desktop, ensure it's treated like other nav links for spacing and alignment */
+    display: inline-block; /* Or inline-flex if needed for alignment within li */
+    vertical-align: middle;
+}
+
+#auth-links-container .auth-link:hover {
+    color: var(--primary-hover);
+    background-color: rgba(0, 153, 143, 0.1);
+    border-color: var(--primary-color);
+}
+
+#user-info-container {
+    /* display: flex; and align-items: center; are set inline via JS for desktop */
+    /* Base styles are fine, JS handles visibility and flex properties */
+}
+
+#user-info-container #loggedInUserEmail {
+    margin-right: 15px;
+    color: var(--text-medium);
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+    line-height: normal; /* Helps with vertical alignment with button */
+    vertical-align: middle;
+}
+
+#user-info-container #logoutBtnHeader {
+    /* Using .btn .btn-sm .btn-secondary will mostly style this */
+    /* Specific overrides if .btn classes are too strong */
+    font-weight: var(--font-weight-semibold);
+    text-transform: none;
+    letter-spacing: normal;
+    vertical-align: middle;
+}
+/* Ensure the logout button in header uses the btn-secondary and btn-sm styles */
+#user-info-container #logoutBtnHeader {
+    background-color: var(--text-light);
+    border-color: var(--text-light);
+    color: var(--bg-white);
+}
+#user-info-container #logoutBtnHeader:hover {
+    background-color: var(--text-medium);
+    border-color: var(--text-medium);
+    color: var(--bg-white);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+/* --- END: NEW/MODIFIED STYLES FOR HEADER AUTHENTICATION --- */
 
 
 /* --- RESPONSIVE STYLES --- */
@@ -518,23 +601,39 @@ footer a:hover {
     -webkit-animation: fadeIn 0.3s ease-out;
             animation: fadeIn 0.3s ease-out;
   }
-  .nav-links li { margin: 0; width: 100%; text-align: left; }
-  .nav-links a {
+
+  .nav-links li {
+    margin: 0; /* Remove left margin for mobile */
+    width: 100%;
+    text-align: left;
+  }
+
+  .nav-links a { /* General style for all 'a' tags inside nav-links for mobile */
     display: block;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid rgba(0,0,0,0.08); /* More subtle separator */
-    color: var(--text-dark); /* Ensure good contrast */
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    color: var(--text-dark);
     font-weight: var(--font-weight-semibold);
+    /* Remove specific border-bottom from general 'a' if li handles it or if it's too complex */
+    border-bottom-color: transparent; /* Reset general 'a' border */
   }
+   .nav-links li > a { /* Target direct 'a' children of 'li' for borders */
+       border-bottom: 1px solid rgba(0,0,0,0.08);
+   }
+
+
   .nav-links a.active,
   .nav-links a:hover {
-    background-color: var(--bg-white); /* Use white for active/hover item background */
+    background-color: var(--bg-white);
     color: var(--primary-color);
-    border-bottom-color: var(--primary-color); /* Highlight bottom border too */
+    /* border-bottom-color: var(--primary-color); Let specific li border handle this for active state */
   }
-  .nav-links li:last-child a {
-    border-bottom: none;
+  .nav-links li.active > a { /* If li gets active class */
+      background-color: var(--bg-white);
+      color: var(--primary-color);
   }
+
+
   .menu-toggle { display: block; }
   header .container { position: relative; } /* Ensures toggle is positioned relative to container */
   .menu-toggle {
@@ -545,6 +644,59 @@ footer a:hover {
             transform: translateY(-50%);
     z-index: 1040; /* Ensure toggle is above the nav links when open */
   }
+
+  /* --- START: MOBILE SPECIFIC STYLES FOR AUTH ELEMENTS --- */
+  #auth-links-container,
+  #user-info-container {
+    /* These are li elements, they will already take full width. */
+    /* Ensure their direct children (a or button) are styled correctly for mobile nav */
+    padding: 0; /* Reset li padding if any */
+  }
+
+  #auth-links-container a.auth-link {
+    /* Styles inherited from .nav-links a should cover this well for mobile */
+    /* padding: 1rem 1.5rem; done by .nav-links a */
+    /* display: block; done by .nav-links a */
+    border-bottom: 1px solid rgba(0,0,0,0.08); /* Ensure it has a separator */
+  }
+
+  #user-info-container {
+    display: flex !important; /* Override inline 'none' when .nav-links.open */
+    flex-direction: column;
+    align-items: flex-start !important; /* Override JS inline style for alignment */
+    padding: 1rem 1.5rem; /* Standard padding for the container itself */
+    border-bottom: 1px solid rgba(0,0,0,0.08); /* Separator for the container li */
+  }
+
+  #user-info-container #loggedInUserEmail {
+    margin-bottom: 0.75rem;
+    margin-right: 0 !important; /* Override JS inline style */
+    max-width: none;
+    color: var(--text-dark); /* Match other nav text on mobile */
+    font-size: 1rem; /* Match other nav text on mobile */
+    padding: 0; /* Reset any padding from desktop */
+  }
+
+  #user-info-container #logoutBtnHeader {
+    width: auto; /* Or width: 100%; if you want full-width button */
+    padding: 0.75rem 1.25rem; /* Make it more touch-friendly */
+    font-size: 0.95rem;
+    align-self: flex-start; /* Or stretch if full-width */
+    margin-top: 0.5rem; /* Space from email */
+  }
+
+  /* Remove bottom border from the very last visible list item in the open mobile menu */
+  .nav-links.open > li:last-child > a, /* If the last item is a standard link */
+  .nav-links.open > li:last-child#user-info-container,
+  .nav-links.open > li:last-child#auth-links-container > a.auth-link {
+      border-bottom: none;
+  }
+  /* If the li itself has the border for user-info-container */
+   .nav-links.open > li:last-child#user-info-container {
+       border-bottom: none;
+   }
+
+  /* --- END: MOBILE SPECIFIC STYLES FOR AUTH ELEMENTS --- */
 }
 /* --- END OF REVISED MOBILE NAVIGATION STYLES --- */
 
