@@ -16,9 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log("Dashboard loaded for user:", user.email);
 
     const addItemForm = document.getElementById('addItemForm');
-    const inventoryTableBody = document.getElementById('inventoryTableBody');
     const itemFormStatusEl = document.getElementById('item-form-status');
-    const inventoryStatusEl = document.getElementById('inventory-status');
     const searchInput = document.getElementById('searchInput');
     const refreshButton = document.getElementById('refreshInventory');
 
@@ -31,20 +29,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             }, 3000);
         }
     }
-     function showInventoryStatus(message) {
-        if (inventoryStatusEl) {
-            inventoryStatusEl.textContent = message;
-        }
-    }
-
+    
+    // --- OPTIMIZED fetchInventory FUNCTION ---
     async function fetchInventory(searchTerm = '') {
-        showInventoryStatus('Loading inventory...');
-        if (!inventoryTableBody) {
-             console.error("inventoryTableBody not found!");
-             showInventoryStatus('Error: Table body element missing.');
-             return;
+        const tableBody = document.getElementById('inventoryTableBody');
+        const inventoryStatusEl = document.getElementById('inventory-status');
+        
+        if (!tableBody) {
+            console.error("inventoryTableBody not found!");
+            return;
         }
-        inventoryTableBody.innerHTML = '';
+        
+        // Clear previous real results but KEEP skeleton rows if they exist
+        tableBody.querySelectorAll('tr:not(.skeleton-row)').forEach(row => row.remove());
+        inventoryStatusEl.textContent = ''; // Clear old status message
 
         let query = window.supabaseClient.from('inventory').select('*');
         if (searchTerm) {
@@ -54,16 +52,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const { data, error } = await query;
 
+        // Now that data is here, clear the entire table body (including skeletons)
+        tableBody.innerHTML = ''; 
+
         if (error) {
             console.error('Error fetching inventory:', error);
-            showInventoryStatus(`Error: ${error.message}`);
+            inventoryStatusEl.textContent = `Error: ${error.message}`;
             return;
         }
 
         if (data && data.length > 0) {
-            showInventoryStatus('');
             data.forEach(item => {
-                const row = inventoryTableBody.insertRow();
+                const row = tableBody.insertRow();
                 row.innerHTML = `
                     <td>${item.name}</td>
                     <td>${item.sku || '-'}</td>
@@ -76,10 +76,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </td>
                 `;
             });
+            addTableEventListeners();
         } else {
-            showInventoryStatus(searchTerm ? 'No items match your search.' : 'No inventory items found. Add some!');
+            inventoryStatusEl.textContent = searchTerm ? 'No items match your search.' : 'No inventory items found. Add some!';
         }
-        addTableEventListeners();
     }
 
     if (addItemForm) {
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 description: document.getElementById('itemDescription').value || null,
                 quantity: parseInt(document.getElementById('itemQuantity').value),
                 category: document.getElementById('itemCategory').value || null,
-                user_id: user.id // The user object is available here
+                user_id: user.id
             };
 
             const { data, error } = await window.supabaseClient.from('inventory').insert([newItem]).select();
@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function addTableEventListeners() {
+        const inventoryTableBody = document.getElementById('inventoryTableBody');
         if (!inventoryTableBody) return;
         inventoryTableBody.querySelectorAll('.btn-delete').forEach(button => {
             button.removeEventListener('click', handleDeleteClick);
