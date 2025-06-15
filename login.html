@@ -7,6 +7,8 @@
     <link rel="icon" href="images/jav.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/login.css">
+    <!-- OPTIMIZATION: Prefetch the dashboard page -->
+    <link rel="prefetch" href="/dashboard.html" as="document">
 </head>
 <body>
     <header>
@@ -58,14 +60,8 @@
         </div>
     </footer>
 
-    <!-- SCRIPT ORDER IS CRUCIAL HERE -->
-    <!-- 1. Supabase Client Library - CORRECTED URL -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- 2. Your Authentication Logic (depends on Supabase) -->
     <script src="js/auth.js"></script>
-
-    <!-- 3. Other page-specific or global scripts -->
     <script>
         const currentYearSpan = document.getElementById('current-year');
         if (currentYearSpan) {

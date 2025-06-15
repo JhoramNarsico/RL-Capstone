@@ -72,21 +72,47 @@
                 <input type="text" id="searchInput" placeholder="Search inventory...">
                 <button id="refreshInventory" class="btn btn-sm">Refresh</button>
             </div>
-            <table id="inventoryTable">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>SKU</th>
-                        <th>Quantity</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="inventoryTableBody">
-                    <!-- Inventory items will be loaded here -->
-                </tbody>
-            </table>
+            <div id="inventoryTableContainer"> <!-- Wrapper Added -->
+                <table id="inventoryTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>SKU</th>
+                            <th>Quantity</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventoryTableBody">
+                        <!-- SKELETON LOADER ROWS -->
+                        <tr class="skeleton-row">
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                        </tr>
+                        <tr class="skeleton-row">
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                        </tr>
+                        <tr class="skeleton-row">
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                            <td><div class="skeleton-loader"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
              <p id="inventory-status" class="status-message"></p>
         </section>
     </main>
@@ -102,16 +128,6 @@
     <script src="js/dashboard.js"></script>
     <script>
         document.getElementById('current-year').textContent = new Date().getFullYear();
-        // Optional: Mobile menu toggle for dashboard if nav becomes complex
-        // const menuToggleDash = document.querySelector('.dashboard-page header .menu-toggle');
-        // const navLinksDash = document.querySelector('.dashboard-page header .nav-links');
-        // if (menuToggleDash && navLinksDash) {
-        //     menuToggleDash.style.display = 'block'; // Show it if you use it
-        //     menuToggleDash.addEventListener('click', () => {
-        //         navLinksDash.classList.toggle('open');
-        //         menuToggleDash.classList.toggle('open');
-        //     });
-        // }
     </script>
 </body>
 </html>
