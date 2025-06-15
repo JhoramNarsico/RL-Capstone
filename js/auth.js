@@ -34,44 +34,10 @@ function updateHeaderUI(user) {
 
 async function handleLogout() {
     console.log('Logging out...');
-    const { error } = await supabaseClient.auth.signOut();
-    if (error) {
-        console.error('Logout error:', error.message);
-        alert(`Logout failed: ${error.message}`);
-    } else {
-        console.log('Logged out successfully');
-        if (window.location.pathname.includes('dashboard.html')) {
-            window.location.href = 'login.html';
-        }
-    }
+    await supabaseClient.auth.signOut();
+    // The onAuthStateChange listener will automatically handle the redirect.
 }
-window.handleLogout = handleLogout;
-
-async function checkAuthStateAndRedirect(protectedPage = false) {
-    const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
-
-    if (sessionError) {
-        console.error("Error getting session:", sessionError.message);
-        if (protectedPage && window.location.pathname.includes('dashboard.html')) {
-            window.location.href = 'login.html';
-        }
-        return null;
-    }
-
-    if (session) {
-        const onLoginPage = window.location.pathname.endsWith('login.html');
-        if (onLoginPage) {
-            window.location.href = 'dashboard.html';
-        }
-    } else {
-        if (protectedPage && window.location.pathname.includes('dashboard.html')) {
-            window.location.href = 'login.html';
-        }
-    }
-    return session;
-}
-window.checkAuthStateAndRedirect = checkAuthStateAndRedirect;
-
+window.handleLogout = handleLogout; // Make it globally accessible for the button
 
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
@@ -94,37 +60,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = loginForm.email.value;
             const password = loginForm.password.value;
             const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            
             if (error) {
                 showAuthFormStatus(`Login failed: ${error.message}`);
             } else if (data.user) {
                 showAuthFormStatus('Login successful! Redirecting...', 'success');
+                // The onAuthStateChange listener will handle the actual redirect.
             } else {
                  showAuthFormStatus('Login failed. Please try again.');
             }
         });
     }
 
-    const isDashboardPage = window.location.pathname.includes('dashboard.html');
-    supabaseClient.auth.getSession().then(({ data: { session } }) => {
-        updateHeaderUI(session ? session.user : null);
-        checkAuthStateAndRedirect(isDashboardPage);
-    });
-
-    supabaseClient.auth.onAuthStateChange((event, session) => {
-        console.log('Auth event:', event, 'Session:', session);
+    // --- The Main Authentication Logic using onAuthStateChange ---
+    supabaseClient.auth.onAuthStateChange((_event, session) => {
         const user = session ? session.user : null;
         updateHeaderUI(user);
 
-        const onLoginPage = window.location.pathname.endsWith('login.html');
-        const onDashboardPage = window.location.pathname.includes('dashboard.html');
+        const isDashboardPage = window.location.pathname.includes('/dashboard.html');
+        const isLoginPage = window.location.pathname.endsWith('/login.html') || window.location.pathname === '/';
 
-        if (event === 'SIGNED_IN') {
-            if (user && onLoginPage) {
-                window.location.href = 'dashboard.html';
+        // If a user is logged in...
+        if (user) {
+            // ...and they are on the login page, redirect them to the dashboard.
+            if (isLoginPage) {
+                window.location.replace('/dashboard.html');
             }
-        } else if (event === 'SIGNED_OUT') {
-            if (onDashboardPage) {
-                window.location.href = 'login.html';
+        } 
+        // If a user is NOT logged in...
+        else {
+            // ...and they are trying to access the dashboard, redirect them to the login page.
+            if (isDashboardPage) {
+                window.location.replace('/login.html');
             }
         }
     });

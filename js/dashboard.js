@@ -1,21 +1,19 @@
 // js/dashboard.js
 document.addEventListener('DOMContentLoaded', async () => {
-    // auth.js should have already run and redirected if not authenticated for dashboard.
-    // We still re-check here for safety or if auth.js didn't complete redirect in time.
-    const session = await window.checkAuthStateAndRedirect(true); // true means it's a protected page
+    // Authentication protection is now handled by auth.js.
+    // We just need to get the session to retrieve the user's data for our functions.
+    const { data: { session }, error: sessionError } = await window.supabaseClient.auth.getSession();
 
-    if (!session || !session.user) {
-        // If somehow still here without a session, force redirect.
-        // auth.js onAuthStateChange should ideally handle this.
-        if (!window.location.pathname.endsWith('login.html')) { // Avoid redirect loop
-            window.location.href = 'login.html';
-        }
-        return; // Stop further execution if no user
+    // This is a fallback. In theory, auth.js should prevent this code from ever running without a session.
+    if (sessionError || !session) {
+        console.error('Dashboard loaded without a valid session. This should have been prevented by auth.js.');
+        const inventoryStatusEl = document.getElementById('inventory-status');
+        if (inventoryStatusEl) inventoryStatusEl.textContent = 'Authentication error. Please try logging in again.';
+        return; 
     }
 
     const user = session.user;
     console.log("Dashboard loaded for user:", user.email);
-    // User email in header is now handled by auth.js's updateHeaderUI
 
     const addItemForm = document.getElementById('addItemForm');
     const inventoryTableBody = document.getElementById('inventoryTableBody');
@@ -23,10 +21,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const inventoryStatusEl = document.getElementById('inventory-status');
     const searchInput = document.getElementById('searchInput');
     const refreshButton = document.getElementById('refreshInventory');
-    // Logout button in header is handled by auth.js, but if you have one specifically in dashboard content:
-    // const logoutButtonContent = document.getElementById('logoutButtonContent');
-    // if(logoutButtonContent) logoutButtonContent.addEventListener('click', window.handleLogout);
-
 
     function showItemFormStatus(message, type = 'error') {
         if (itemFormStatusEl) {
@@ -91,10 +85,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (addItemForm) {
         addItemForm.addEventListener('submit', async (event) => {
             event.preventDefault();
-            if (!user) { // Safety check
-                showItemFormStatus('Error: Not logged in.');
-                return;
-            }
             showItemFormStatus('Adding item...', 'sending');
             const newItem = {
                 name: document.getElementById('itemName').value,
@@ -102,7 +92,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 description: document.getElementById('itemDescription').value || null,
                 quantity: parseInt(document.getElementById('itemQuantity').value),
                 category: document.getElementById('itemCategory').value || null,
-                user_id: user.id
+                user_id: user.id // The user object is available here
             };
 
             const { data, error } = await window.supabaseClient.from('inventory').insert([newItem]).select();
@@ -120,8 +110,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     function addTableEventListeners() {
         if (!inventoryTableBody) return;
         inventoryTableBody.querySelectorAll('.btn-delete').forEach(button => {
-            button.removeEventListener('click', handleDeleteClick); // Remove old listener
-            button.addEventListener('click', handleDeleteClick);    // Add new one
+            button.removeEventListener('click', handleDeleteClick);
+            button.addEventListener('click', handleDeleteClick);
         });
         inventoryTableBody.querySelectorAll('.btn-edit').forEach(button => {
              button.removeEventListener('click', handleEditClick);
@@ -133,7 +123,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (confirm('Are you sure you want to delete this item?')) {
             const { error } = await window.supabaseClient.from('inventory').delete().match({ id: itemId });
             if (error) {
-                console.error('Error deleting item:', error);
                 alert(`Error: ${error.message}`);
             } else {
                 fetchInventory(searchInput.value);
@@ -143,7 +132,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     function handleEditClick(e) {
         const itemId = e.target.dataset.id;
         alert(`Edit item ID: ${itemId} - (Edit functionality not fully implemented yet)`);
-        // TODO: Implement edit functionality
     }
 
     if (searchInput) {
